@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: events-data
-        image: gcr.io/dtc-user7/internal-image:v1.0.0
+        image: prrana/internal:latest
         ports:
         - containerPort: 8082
           name: "events-port"
