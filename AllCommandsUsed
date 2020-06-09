@@ -1,0 +1,336 @@
+    1  wget https://storage.googleapis.com/deloitte-training/sample-master.zip
+    2  rm sample-master.zip 
+    3  ll
+    4  git clone https://github.com/dnizam/bootcamp-internal.git
+    5  git clone https://github.com/dnizam/bootcamp-external.git
+    6  cd bootcamp-internal/
+    7  cd ../bootcamp-external/
+    8  cd ../bootcamp-internal/
+    9  npm start
+   10  node server.js
+   11  npm install
+   12  cd bootcamp-external/
+   13  npm start
+   14  npm install
+   15  npm start
+   16  ll
+   17  git show
+   18  git log
+   19  npm start
+   20  git checkout -b user5
+   21  ll
+   22  cd views/
+   23  ls
+   24  cd layouts/
+   25  vi default.hbs 
+   26  cd ../..
+   27  git add .
+   28  git show
+   29  git branch
+   30  cd views/layouts/
+   31  ll
+   32  vi default.hbs 
+   33  cd ../..
+   34  git add .
+   35  git commit -m "Updated html body"
+   36  git push origin user5
+   37  git config
+   38  clear
+   39  git show
+   40  !
+   41  git commit
+   42  git config --global user.email "repooja@deloitte.com"
+   43  git config --global user.name "repooja"
+   44  git push origin user5
+   45  git checkout master
+   46  git pull
+   47  ll
+   48  cd views/layouts/
+   49  vi default.hbs 
+   50  cd ../..
+   51  git add .
+   52  git commit -m "updated body of default.hbs"
+   53  git push origin master
+   54  git pull
+   55  cd ../bootcamp-external/
+   56  ll
+   57  git branch
+   58  git checkout user5
+   59  git pull
+   60  git stash
+   61  git checkout user5
+   62  git add .
+   63  git commit -m "updated default.hbs"
+   64  git push origin user5
+   65  git pull
+   66  git pull origin user5
+   67  git push origin user5
+   68  cd bootcamp-internal/
+   69  docker ps
+   70  docker ps -a
+   71  docker build . -t internal:v1.0.0
+   72  docker ps
+   73  docker image
+   74  docker images
+   75  docker push poojadocker912/internal
+   76  docker build . -t poojadocker912/internal:v1.0.0
+   77  docker push poojadocker912/internal:v1.0.0
+   78  docker login
+   79  docker push poojadocker912/internal:v1.0.0
+   80  docker run -d -p 8082:8082 poojadocker912/internal:v1.0.0
+   81  docker ps
+   82  docker logs
+   83  docker logs a5918e4873e7
+   84  clear
+   85  cd ../bootcamp-external/
+   86  ll
+   87  clear
+   88  docker build . -t poojadocker912/external:v1.0.0
+   89  docker ps
+   90  docker run -d -p 8080:8080 poojadocker912/external:v1.0.0
+   91  docker ps
+   92  docker logs 8f5a42c4b7ce
+   93  docker stop 8f5a42c4b7ce
+   94  docker ps
+   95  docker run -p 8080:8080 -e SERVER='http://localhost:8082' --network="host" poojadocker912/external:v1.0.0
+   96  docker push poojadocker912/external:v1.0.0
+   97  git branch
+   98  git checkout master
+   99  git add .
+  100  git commit -m "Added Dockerfile"
+  101  git push origin master
+  102  git pull origin master
+  103  vi views/layouts/default.hbs
+  104  git status
+  105  git add .
+  106  git commit -m "resolved conflicts"
+  107  git push origin master
+  108  cd ../bootcamp-internal/
+  109  git add .
+  110  git commit -m "Added Dockerfile"
+  111  git push origin master
+  112  clear
+  113  docker ps
+  114  git push origin master
+  115  clear
+  116  export PROJECT=$(gcloud info --format='value(config.project)')
+  117  gcloud builds submit --tag gcr.io/$PROJECT/internal-image:v1.0.0 .
+  118  export PROJECT=$(gcloud info --format='value(config.project)')
+  119  gcloud builds submit --tag gcr.io/$PROJECT/internal-image:v1.0.0 .
+  120  echo $PROJECT
+  121  docker push gcr.io/dtc-user5/internal-image:v1.0.0
+  122  gcloud builds submit --tag gcr.io/$PROJECT/internal-image:v1.0.0 .
+  123  docker push gcr.io/dtc-user5/internal-image:v1.0.0
+  124  cd ../bootcamp-external/
+  125  ll
+  126  export PROJECT=$(gcloud info --format='value(config.project)')
+  127  gcloud builds submit --tag gcr.io/$PROJECT/external-image:v1.0.0 .
+  128  history
+  129  cd ..
+  130  ll
+  131  docker pull gcr.io/dtc-user5/external-image:v1.0.0
+  132  history
+  133  ll
+  134  clear
+  135  docker ps
+  136  docker ps -a
+  137  docker run export PROJECT=$(gcloud info --format='value(config.project)')
+  138  docker run -d -p 8080:8080 gcr.io/dtc-user5/internal-image:v1.0.0
+  139  docker ps
+  140  docker stop e09532c016a3
+  141  docker rm e09532c016a3
+  142  docker ps
+  143  docker run -d -p 8080:8080 gcr.io/dtc-user5/external-image:v1.0.0
+  144  docker ps
+  145  docker logs
+  146  docker stop 50146a501686
+  147  docker ps
+  148  docker run -p 8080:8080 -e SERVER='http://localhost:8082' --network="host" gcr.io/dtc-user5/external-image:v1.0.0
+  149  cd bootcamp-external/
+  150  gcloud builds submit --tag gcr.io/$PROJECT/external-image:v1.0.1 .
+  151  docker ps
+  152  docker run -p 8080:8080 -e SERVER='http://localhost:8082' --network="host" gcr.io/dtc-user5/external-image:v1.0.1
+  153  git add .
+  154  git commit -m "Added body"
+  155  git push origin master
+  156  history
+  157  clear
+  158  docker ps
+  159  docker images
+  160  docker ps -a
+  161  docker pull gcr.io/dtc-user5/internal-image:v1.0.0
+  162  cd bootcamp-external/
+  163  ll
+  164  git pull origin master
+  165  docker build . -t poojadocker912/external:v2.0.0
+  166  docker run -p 8080:8080 -e SERVER='http://localhost:8082' --network="host" poojadocker912/external:v1.0.0
+  167  docker run -p 8080:8080 -e SERVER='http://localhost:8082' --network="host" poojadocker912/external:v2.0.0
+  168  cd ../bootcamp-internal/
+  169  docker run -d -p 8082:8082 poojadocker912/internal:v1.0.0
+  170  cd -
+  171  docker run -d -p 8080:8080 -e SERVER='http://localhost:8082' --network="host" poojadocker912/external:v2.0.0
+  172  gcloud container clusters get-credentials user5-kube-demo --zone us-central1-c --project dtc-user5
+  173  history
+  174  cd bootcamp-internal/
+  175  ll
+  176  clear
+  177  kubectl
+  178  clear
+  179  kubectl apply -f kube-config-internal.yaml 
+  180  kubectl get pods
+  181  kubectl get deployments
+  182  kubectl get services
+  183  cd ../bootcamp-external/
+  184  kubectl apply -f kube-config-external.yaml 
+  185  kubectl get deployments
+  186  kubectl get services
+  187  cd ../bootcamp-internal/
+  188  kubectl apply -f kube-config-internal.yaml 
+  189  kubectl get services
+  190  cd ../bootcamp-external/
+  191  kubectl apply -f kube-config-external.yaml 
+  192  kubectl get services
+  193  kubectl apply -f ../bootcamp-internal/kube-config-internal.yaml 
+  194  kubectl get services
+  195  kubectl apply -f kube-config-external.yaml 
+  196  kubectl get services
+  197  kubectl get pods
+  198  kubectl rm pods event-web
+  199  kubectl delete events-web-74b8cd8647-5kvl2
+  200  kubectl delete deployments/events-web-74b8cd8647-5kvl2
+  201  kubectl get services
+  202  cd ../bootcamp-internal/
+  203  kubectl apply -f kube-config-internal.yaml 
+  204  cd ../bootcamp-external/
+  205  kubectl apply -f kube-config-external.yaml 
+  206  kubectl get services
+  207  kubectl get deployments
+  208  kubectl get pods
+  209  kubectl apply -f ../bootcamp-internal/kube-config-internal.yaml 
+  210  kubectl apply -f kube-config-external.yaml 
+  211  kubectl apply -f ../bootcamp-internal/kube-config-internal.yaml 
+  212  kubectl apply -f kube-config-external.yaml 
+  213  kubectl get services
+  214  docker images
+  215  docker stop poojadocker912/external
+  216  ll
+  217  clear
+  218  docker images
+  219  kubectl apply -f kube-config-external.yaml 
+  220  kubectl apply -f ../bootcamp-internal/kube-config-internal.yaml
+  221  klubectl get deployments
+  222  kubectl get deployments
+  223  kubectl get services
+  224  kubectl apply -f kube-config-external.yaml 
+  225  kubectl get pods
+  226  kubectl describe vents-data-666f68bc46-5p66l
+  227  kubectl describe events-data-666f68bc46-5p66l
+  228  kubectl get pods
+  229  kubectl apply -f kube-config-external.yaml 
+  230  kubectl apply -f ../bootcamp-internal/kube-config-internal.yaml
+  231  gcloud container clusters get-credentials user5-kube-demo --zone us-central1-c --project dtc-user5
+  232  kubectl apply -f ../bootcamp-internal/kube-config-internal.yaml
+  233  kubectl apply -f kube-config-external.yaml 
+  234  clear
+  235  docker build . -t poojadocker912/external:v3.0.0
+  236  docker push poojadocker912/external:v3.0.0
+  237  gcloud builds submit --tag gcr.io/$PROJECT/external-image:v3.0.0 .
+  238  gcloud builds submit --tag gcr.io/dtc-user5/external-image:v3.0.0 .
+  239  kubectl apply -f kube-config-external.yaml 
+  240  kubectl apply -f ../bootcamp-internal/kube-config-internal.yaml
+  241  kubectl apply -f kube-config-external.yaml 
+  242  clear
+  243  kubectl get services
+  244  git add .
+  245  git commit -m "Added Kubernetes config files"
+  246  git push origin master
+  247  cd ../bootcamp-internal/
+  248  clear
+  249  git add .
+  250  git commit -m "Added Kubernetes config files"
+  251  git push origin master
+  252  git remote -v
+  253  vi cheat-sheet
+  254  history
+  255  git add .
+  256  git commit -m "Added cheat-sheet"
+  257  git push origin master
+  258  gcloud container clusters get-credentials user5-kube-cluster --zone us-central1-c --project dtc-user5
+  259  kubectl apply -f bootcamp-internal/kube-config-internal.yaml 
+  260  kubectl apply -f bootcamp-external/kube-config-external.yaml 
+  261  kubectl apply -f bootcamp-external/namespacedev.yaml 
+  262  kubectl get namespaces
+  263  clear
+  264  kubectl apply -f bootcamp-internal/kube-config-internal.yaml --namespace=development
+  265  kubectl apply -f bootcamp-external/kube-config-external.yaml --namespace=development
+  266  ll
+  267  clear
+  268  git clone https://github.com/drehnstrom/terraform-space-invaders-gke.git
+  269  ll
+  270  clear
+  271  cd terraform-space-invaders-gke/
+  272  terraform init
+  273  terrafom plan
+  274  clear
+  275  terraform plan
+  276  clear
+  277  terraform plan
+  278  terraform apply -auto-approve
+  279  terraform plan
+  280  terraform apply -auto-approve
+  281  clear
+  282  terraform plan
+  283  terraform apply -auto-approve
+  284  terraform destroy
+  285  terraform destroy -auto-approve
+  286  clear
+  287  terraform apply -auto-approve
+  288  git remote -v
+  289  clear
+  290  git remote add Terraform
+  291  git remote add Terraform https://github.com/poojagit912/Terraform-Demo.git
+  292  git remote -v
+  293  git add .
+  294  git commit -m "initial commit"
+  295  git push Terraform master
+  296  clear
+  297  terraform apply -auto-approve
+  298  terraform destroy -auto-approve
+  299  clear
+  300  terraform destroy -auto-approve
+  301  cd ../bootcamp-internal/
+  302  kubectl apply -f kube-config-internal.yaml --IMAGE=poojadocker912/internal:v1.0.0
+  303  kubectl apply -f kube-config-internal.yaml IMAGE=poojadocker912/internal:v1.0.0
+  304  kubectl apply -h 
+  305  clear
+  306  kubectl set image poojadocker912/internal:v1.0.0
+  307  export IMAGE=poojadocker912/internal:v1.0.0
+  308  envsubst < deployment.yaml | kubectl apply -f -
+  309  envsubst < deployment.yaml | kubectl apply -f -CLEAR
+  310  envsubst < kube-config-internal.yaml | kubectl apply -f -
+  311  cd bootcamp-internal/
+  312  git pull
+  313  git branch
+  314  kubectl apply -f kube-config-internal.yaml 
+  315  gcloud container clusters get-credentials user5-kube-cluster --zone us-central1-c --project dtc-user5
+  316  kubectl apply -f kube-config-internal.yaml 
+  317  cd ../bootcamp-external/
+  318  gcloud container clusters get-credentials user5-kube-cluster --zone us-central1-c --project dtc-user5
+  319  kubectl apply -f kube-config-external.yaml 
+  320  clear
+  321  kubectl get namespaces
+  322  cd ../bootcamp-internal/
+  323  kubernetes create namespace development
+  324  kubectl create namespace development
+  325  kubectl get namespaces
+  326  kubectl apply -f kube-config-internal.yaml --namespace=development
+  327  cd ../bootcamp-external/
+  328  kubectl apply -f kube-config-external.yaml --namespace=development
+  329  git pull
+  330  npm test
+  331  git add .
+  332  git commit -m "Add test changes"
+  333  git push origin master
+  334  history
+  335  cat history
+  336  history >> myfile
