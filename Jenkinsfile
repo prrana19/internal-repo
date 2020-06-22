@@ -1,11 +1,14 @@
-def ProjectId="dtc-user5"
+def ProjectId="prrana"
 pipeline{
-    agent any
     environment {
-        Image_name = "gcr.io/${ProjectId}/internal-image:V_${BUILD_ID}"
-    }
+    registry = "prrana/internal"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+    Image_name = "${ProjectId}/internal:v1.0.${BUILD_ID}"
+  }
+    agent any 
     stages{
-        stage('dependancy versions'){
+        stage('dependency versions'){
             steps{
                 sh '''
                     git --version
@@ -16,7 +19,7 @@ pipeline{
         }
         stage('git checkout'){
             steps{
-                    git 'https://github.com/dnizam/bootcamp-internal.git'
+                    git 'https://github.com/prrana19/internal-repo.git'
             }    
         }
         stage('git test'){
@@ -29,22 +32,49 @@ pipeline{
                 ''' 
             }    
         }
-        stage('build'){
-            steps{
-                sh '''
-                    echo "${Image_name}"
-                    echo "build and push docker image for internal app ..!"
-                    gcloud builds submit --tag ${Image_name} .
-                ''' 
-            }    
+        stage('Sonarqube') {
+                environment {
+                    scannerHome = tool 'SonarScanner'
+                     }
+                steps {
+                     withSonarQubeEnv('sonarQube') {
+                     sh "${scannerHome}/bin/sonar-scanner"
+                      }
+                 }
         }
-        stage('deploy'){
+        
+        stage('building image'){
+            steps{
+                 script {
+                     dockerImage = docker.build registry + "$BUILD_NUMBER"
+        
+                        }
+                     }
+             }
+        stage('Push Image to dockerhub') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                            }
+                         }
+                    }
+            }
+            stage('deploy'){
             steps{
                 sh """
-                    gcloud container clusters get-credentials user5-kube-cluster --zone us-central1-c --project dtc-user5
-                    kubectl set image deployment/events-data events-data=${Image_name}
+                    gcloud container clusters get-credentials my-app-cluster --zone us-central1-a --project prrana
+                    kubectl set image deployment/events-data events-data=$registry$BUILD_NUMBER --namespace=internal-external
                 """
             }    
-        }  
-    }
+        } 
+        stage('Remove Unused docker image') {
+             steps{
+              sh "docker rmi $registry$BUILD_NUMBER"
+                }
+            }
+            
+}			
 }
+
+
