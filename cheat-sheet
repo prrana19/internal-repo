@@ -31,6 +31,7 @@ Kubernetes commands
 gcloud container clusters get-credentials user5-kube-demo --zone us-central1-c --project dtc-user5
 kubectl apply -f kube-config-internal.yaml
 kubectl apply -f kube-config-external.yaml
+#kubectl set image deployment/events-data events-data=prrana/internal:$BUILD_NUMBER --namespace=internal-external
 
 kubectl get services
 kubectl get deployments
