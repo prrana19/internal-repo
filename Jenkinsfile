@@ -4,7 +4,6 @@ pipeline{
     registry = "prrana/internal"
     registryCredential = 'dockerhub'
     dockerImage = ''
-    Image_name = "${ProjectId}/internal:v1.0.${BUILD_ID}"
   }
     agent any 
     stages{
@@ -46,7 +45,7 @@ pipeline{
         stage('building image'){
             steps{
                  script {
-                     dockerImage = docker.build registry + "$BUILD_NUMBER"
+                     dockerImage = docker.build registry + ":V5.0.$BUILD_NUMBER"
         
                         }
                      }
@@ -64,13 +63,13 @@ pipeline{
             steps{
                 sh """
                     gcloud container clusters get-credentials demo-app-cluster --zone us-central1-a --project prrana
-                    kubectl set image deployment/events-data events-data=$registry$BUILD_NUMBER --namespace=internal-external
+                    kubectl set image deployment/events-data events-data=$registry:V5.0.$BUILD_NUMBER --namespace=internal-external
                 """
             }    
         } 
         stage('Remove Unused docker image') {
              steps{
-              sh "docker rmi $registry$BUILD_NUMBER"
+              sh "docker rmi $registry:V5.0.$BUILD_NUMBER"
                 }
             }
             
